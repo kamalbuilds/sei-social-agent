@@ -1,0 +1,52 @@
+{
+  "name": "sei-social-tipping-agent",
+  "version": "1.0.0",
+  "description": "AI-powered social tipping agent for Sei Network",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc",
+    "test": "vitest",
+    "lint": "eslint src --ext .ts",
+    "typecheck": "tsc --noEmit",
+    "deploy": "tsx scripts/deploy.ts",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@sei-js/core": "^3.2.1",
+    "@sei-js/proto": "^4.0.0",
+    "axios": "^1.6.0",
+    "discord.js": "^14.14.0",
+    "dotenv": "^16.3.1",
+    "ethers": "^6.9.0",
+    "express": "^4.18.2",
+    "node-cron": "^3.0.3",
+    "openai": "^4.24.0",
+    "sei-agent-kit": "^0.0.7",
+    "twitter-api-v2": "^1.15.0",
+    "winston": "^3.11.0",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "@types/express": "^4.17.21",
+    "@typescript-eslint/eslint-plugin": "^6.13.0",
+    "@typescript-eslint/parser": "^6.13.0",
+    "eslint": "^8.55.0",
+    "tsx": "^4.6.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.0.0"
+  },
+  "keywords": [
+    "sei",
+    "blockchain",
+    "ai",
+    "agent",
+    "social",
+    "tipping",
+    "x402",
+    "micropayments"
+  ],
+  "author": "Hive Mind Collective",
+  "license": "MIT"
+}
