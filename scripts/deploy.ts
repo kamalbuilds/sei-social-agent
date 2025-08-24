@@ -1,32 +1,38 @@
 #!/usr/bin/env tsx
 
-import { SeiBlockchain } from '../src/blockchain/sei-integration';
+import { SeiBlockchainService } from '../src/blockchain/sei-integration';
 import { logger } from '../src/utils/logger';
 import 'dotenv/config';
 
 async function deploy() {
   logger.info('Starting deployment process...');
 
-  const blockchain = new SeiBlockchain();
+  const blockchain = new SeiBlockchainService('social-tipping-agent', {
+    privateKey: process.env.SEI_PRIVATE_KEY!,
+    rpcUrl: process.env.SEI_RPC_URL || 'https://evm-rpc.arctic-1.seinetwork.io',
+    chainId: 'arctic-1'
+  });
 
   try {
-    // Connect to Sei network
-    await blockchain.connect();
+    // Initialize blockchain connection
+    await blockchain.initialize();
     
     // Get current balance
     const balance = await blockchain.getBalance();
-    logger.info(`Wallet balance: ${balance.sei} SEI`);
+    logger.info(`Wallet balance: ${balance} SEI`);
 
-    // Deploy agent contract
-    const contractAddress = await blockchain.deployAgentContract();
-    logger.info(`Contract deployed at: ${contractAddress}`);
+    // Register agent on blockchain
+    const registry = await blockchain.registerAgent({
+      name: 'Social Tipping Agent',
+      description: 'AI-powered social media tipping agent',
+      agent_type: 'social'
+    });
+    logger.info(`Agent registered with ID: ${registry.agentId}`);
 
-    // Save contract address to environment
+    // Save agent registry to environment
     logger.info('Update your .env file with:');
-    logger.info(`AGENT_CONTRACT_ADDRESS=${contractAddress}`);
-
-    // Disconnect
-    await blockchain.disconnect();
+    logger.info(`AGENT_ID=${registry.agentId}`);
+    logger.info(`AGENT_CONTRACT_ADDRESS=${registry.contractAddress}`);
     
     logger.info('Deployment completed successfully!');
   } catch (error) {

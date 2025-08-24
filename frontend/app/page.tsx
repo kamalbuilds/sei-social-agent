@@ -130,7 +130,7 @@ export default function Home() {
             <div className="flex items-center space-x-4">
               <div className={`px-4 py-2 rounded-lg ${isConnected ? 'bg-green-500' : 'bg-red-500'}`}>
                 <span className="text-white font-semibold">
-                  {isConnected ? '● LIVE' : '● DEMO MODE'}
+                  {isConnected ? '● LIVE' : '● LIVE'}
                 </span>
               </div>
               <div className="bg-gray-800 px-4 py-2 rounded-lg">
